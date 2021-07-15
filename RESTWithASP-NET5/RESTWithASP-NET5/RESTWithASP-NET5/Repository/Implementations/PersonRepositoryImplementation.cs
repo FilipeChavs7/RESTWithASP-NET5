@@ -90,7 +90,7 @@ namespace RESTWithASP_NET5.Repository.Implementations
 
         
 
-        private bool Exists(long id)
+        public bool Exists(long id)
         {
             return _context.Persons.Any(p => p.Id.Equals(id));
         }

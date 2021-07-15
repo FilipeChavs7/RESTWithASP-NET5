@@ -14,32 +14,47 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using RESTWithASP_NET5.Repository;
+using RESTWithASP_NET5.Repository.Implementations;
+using Serilog;
 
 namespace RESTWithASP_NET5
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public IConfiguration Configuration { get; }
+        public IWebHostEnvironment Enviroment { get; }
+
+        public Startup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             Configuration = configuration;
+            Enviroment = environment;
+            Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
         }
 
-        public IConfiguration Configuration { get; }
+
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddControllers();
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
             var connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection, serverVersion));
 
+            if (Enviroment.IsDevelopment())
+            {
+                MigrateDatabase(connection);
+            }
+
             services.AddApiVersioning();
 
             //Injeção de dependencia
-                services.AddScoped<IPersonService, PersonServiceImplementation>();
+            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
+            services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
         }
+
+
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -59,6 +74,19 @@ namespace RESTWithASP_NET5
             {
                 endpoints.MapControllers();
             });
+            
+        }
+        private void MigrateDatabase(string connection)
+        {
+            try
+            {
+                var evolveConnection = new MySql.Data.MySqlClient.MySqlConnection(connection);
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Database Migration Failed", ex);
+                throw;
+            }
         }
     }
 }
