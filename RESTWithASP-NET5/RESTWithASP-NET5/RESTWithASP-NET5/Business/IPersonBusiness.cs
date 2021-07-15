@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using RESTWithASP_NET5.Model;
 
-namespace RESTWithASP_NET5.Services
+namespace RESTWithASP_NET5.Business
 {
-    public interface IPersonService
+    public interface IPersonBusiness
     {
         Person Create(Person person);
         Person FindById(long Id);

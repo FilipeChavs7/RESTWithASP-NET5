@@ -8,8 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using RESTWithASP_NET5.Model.Context;
-using RESTWithASP_NET5.Services;
-using RESTWithASP_NET5.Services.Implementations;
+using RESTWithASP_NET5.Business;
+using RESTWithASP_NET5.Business.Implementations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,6 +34,8 @@ namespace RESTWithASP_NET5
             var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
             var connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection, serverVersion));
+
+            services.AddApiVersioning();
 
             //Injeção de dependencia
                 services.AddScoped<IPersonService, PersonServiceImplementation>();

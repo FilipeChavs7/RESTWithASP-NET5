@@ -5,23 +5,25 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Globalization;
-using RESTWithASP_NET5.Services;
+using RESTWithASP_NET5.Business;
 using RESTWithASP_NET5.Model;
+using RESTWithASP_NET5.Repository;
 
 namespace RESTWithASP_NET5.Controllers
 {
+    [ApiVersion("1")]
     [ApiController]
-    [Route("api/[controller]")]
+    [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase
     {
         
 
         private readonly ILogger<PersonController> _logger;
-        private IPersonService _personService;
+        private IPersonBusiness _personBusiness;
 
-        public PersonController(ILogger<PersonController> logger, IPersonService personService)
+        public PersonController(ILogger<PersonController> logger, IPersonBusiness personService)
         {
-            _personService = personService;
+            _personBusiness = personService;
             _logger = logger;
         }
         // Maps GET requests to https://localhost:{port}/api/person
@@ -30,7 +32,7 @@ namespace RESTWithASP_NET5.Controllers
         public IActionResult Get()
         {
             
-            return Ok(_personService.FindAll());
+            return Ok(_personBusiness.FindAll());
         }
         // Maps GET requests to https://localhost:{port}/api/person/{id}
         // receiving an ID as in the Request Path
@@ -38,7 +40,7 @@ namespace RESTWithASP_NET5.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(long id)
         {
-            var person = _personService.FindById(id);
+            var person = _personBusiness.FindById(id);
             if(person == null)
             {
                 return NotFound();
@@ -56,7 +58,7 @@ namespace RESTWithASP_NET5.Controllers
             {
                 return BadRequest();
             }
-            return Ok(_personService.Create(person));
+            return Ok(_personBusiness.Create(person));
         }
         // Maps PUT requests to https://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object sent in the request body
@@ -68,7 +70,7 @@ namespace RESTWithASP_NET5.Controllers
             {
                 return BadRequest();
             }
-            return Ok(_personService.Update(person));
+            return Ok(_personBusiness.Update(person));
         }
         // Maps DELETE requests to https://localhost:{port}/api/person/{id}
         // receiving an ID as in the Request Path
@@ -76,7 +78,7 @@ namespace RESTWithASP_NET5.Controllers
         public IActionResult Delete(long id)
         {
 
-            _personService.Delete(id);
+            _personBusiness.Delete(id);
             
             return NoContent();
         }
