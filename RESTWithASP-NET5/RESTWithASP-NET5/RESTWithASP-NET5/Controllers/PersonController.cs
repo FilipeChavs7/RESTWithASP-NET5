@@ -5,78 +5,81 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Globalization;
+using RESTWithASP_NET5.Services;
+using RESTWithASP_NET5.Model;
 
 namespace RESTWithASP_NET5.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
-    public class CalculatorController : ControllerBase
+    [Route("api/[controller]")]
+    public class PersonController : ControllerBase
     {
         
 
-        private readonly ILogger<CalculatorController> _logger;
+        private readonly ILogger<PersonController> _logger;
+        private IPersonService _personService;
 
-        public CalculatorController(ILogger<CalculatorController> logger)
+        public PersonController(ILogger<PersonController> logger, IPersonService personService)
         {
+            _personService = personService;
             _logger = logger;
         }
+        // Maps GET requests to https://localhost:{port}/api/person
+        // Get no parameters for FindAll -> Search All
+        [HttpGet]
+        public IActionResult Get()
+        {
+            
+            return Ok(_personService.FindAll());
+        }
+        // Maps GET requests to https://localhost:{port}/api/person/{id}
+        // receiving an ID as in the Request Path
+        // Get with parameters for FindById -> Search by ID
+        [HttpGet("{id}")]
+        public IActionResult Get(long id)
+        {
+            var person = _personService.FindById(id);
+            if(person == null)
+            {
+                return NotFound();
+            }
+            return Ok(person);
+        }
+        // Maps POST requests to https://localhost:{port}/api/person/
+        // [FromBody] consumes the JSON object sent in the request body
+        [HttpPost]
 
-        [HttpGet("sum/{firstNumber}/{secondNumber}")]
-        public IActionResult sum(string firstNumber, string secondNumber)
+        public IActionResult Post([FromBody] Person person)
         {
-            if(IsNumeric (firstNumber) && IsNumeric(secondNumber))
+            
+            if (person == null)
             {
-                var sum = convertToDecimal(firstNumber) + convertToDecimal(secondNumber);
-                return Ok(sum.ToString());
+                return BadRequest();
             }
-            return BadRequest("Invalid Input");
+            return Ok(_personService.Create(person));
         }
-        [HttpGet("sub/{firstNumber}/{secondNumber}")]
-        public IActionResult sub(string firstNumber, string secondNumber)
+        // Maps PUT requests to https://localhost:{port}/api/person/
+        // [FromBody] consumes the JSON object sent in the request body
+        [HttpPut]
+        public IActionResult Put([FromBody] Person person)
         {
-            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
+
+            if (person == null)
             {
-                var sum = convertToDecimal(firstNumber) - convertToDecimal(secondNumber);
-                return Ok(sum.ToString());
+                return BadRequest();
             }
-            return BadRequest("Invalid Input");
+            return Ok(_personService.Update(person));
         }
-        [HttpGet("div/{firstNumber}/{secondNumber}")]
-        public IActionResult div(string firstNumber, string secondNumber)
+        // Maps DELETE requests to https://localhost:{port}/api/person/{id}
+        // receiving an ID as in the Request Path
+        [HttpDelete("{id}")]
+        public IActionResult Delete(long id)
         {
-            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
-            {
-                var sum = convertToDecimal(firstNumber) / convertToDecimal(secondNumber);
-                return Ok(sum.ToString());
-            }
-            return BadRequest("Invalid Input");
-        }
-        [HttpGet("mult/{firstNumber}/{secondNumber}")]
-        public IActionResult mult(string firstNumber, string secondNumber)
-        {
-            if (IsNumeric(firstNumber) && IsNumeric(secondNumber))
-            {
-                var sum = convertToDecimal(firstNumber) * convertToDecimal(secondNumber);
-                return Ok(sum.ToString());
-            }
-            return BadRequest("Invalid Input");
+
+            _personService.Delete(id);
+            
+            return NoContent();
         }
 
-        private decimal convertToDecimal(string strNumber)
-        {
-            decimal decimalValue;
-            if (decimal.TryParse(strNumber, out decimalValue))
-            {
-                return decimalValue;
-            }
-            return 0;
-        }
-
-        private bool IsNumeric(string strNumber)
-        {
-            double number;
-            bool isNumber = double.TryParse(strNumber, NumberStyles.Any, NumberFormatInfo.InvariantInfo, out number);
-            return isNumber;
-        }
     }
 }
