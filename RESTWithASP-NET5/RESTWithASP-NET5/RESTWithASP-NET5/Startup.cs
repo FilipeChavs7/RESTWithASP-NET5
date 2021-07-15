@@ -2,10 +2,12 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using RESTWithASP_NET5.Model.Context;
 using RESTWithASP_NET5.Services;
 using RESTWithASP_NET5.Services.Implementations;
 using System;
@@ -29,9 +31,12 @@ namespace RESTWithASP_NET5
         {
 
             services.AddControllers();
+            var serverVersion = new MySqlServerVersion(new Version(8, 0, 25));
+            var connection = Configuration["MySqlConnection:MySqlConnectionString"];
+            services.AddDbContext<MySQLContext>(options => options.UseMySql(connection, serverVersion));
 
             //Injeção de dependencia
-            services.AddScoped<IPersonService, PersonServiceImplementation>();
+                services.AddScoped<IPersonService, PersonServiceImplementation>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
