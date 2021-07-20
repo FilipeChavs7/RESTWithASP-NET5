@@ -15,8 +15,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using RESTWithASP_NET5.Repository;
-using RESTWithASP_NET5.Repository.Implementations;
 using Serilog;
+using RESTWithASP_NET5.Repository.Generic;
 
 namespace RESTWithASP_NET5
 {
@@ -50,10 +50,9 @@ namespace RESTWithASP_NET5
             services.AddApiVersioning();
 
             //Injeção de dependencia
-            services.AddScoped<IPersonRepository, PersonRepositoryImplementation>();
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
-            services.AddScoped<IBookRepository, BookRepositoryImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
+            services.AddScoped(typeof(IRepository<>), typeof(GenericRepository<>));
         }
 
 

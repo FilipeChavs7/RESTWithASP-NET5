@@ -1,4 +1,5 @@
-﻿using System;
+﻿using RESTWithASP_NET5.Model.Base;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
@@ -7,17 +8,16 @@ using System.Threading.Tasks;
 namespace RESTWithASP_NET5.Model
 {
     [Table("books")]
-    public class Book
+    public class Book : BaseEntity
     {
-        [Column("id")]
-        public long Id { get; set; }
+        
         [Column("name_book")]
         public string NameBook { get; set; }
         [Column("author")]
         public string Author { get; set; }
         [Column("launch_date")]
-        public string DateLaunch { get; set; }
+        public DateTime DateLaunch { get; set; }
         [Column("price")]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

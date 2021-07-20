@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace RESTWithASP_NET5.Controllers
 {
-    [ApiVersion("2")]
+    [ApiVersion("1")]
     [ApiController]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class BookController : Controller

@@ -8,6 +8,7 @@ using System.Globalization;
 using RESTWithASP_NET5.Business;
 using RESTWithASP_NET5.Model;
 using RESTWithASP_NET5.Repository;
+using RESTWithASP_NET5.Data.VO;
 
 namespace RESTWithASP_NET5.Controllers
 {
@@ -51,7 +52,7 @@ namespace RESTWithASP_NET5.Controllers
         // [FromBody] consumes the JSON object sent in the request body
         [HttpPost]
 
-        public IActionResult Post([FromBody] Person person)
+        public IActionResult Post([FromBody] PersonVO person)
         {
             
             if (person == null)
@@ -63,7 +64,7 @@ namespace RESTWithASP_NET5.Controllers
         // Maps PUT requests to https://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object sent in the request body
         [HttpPut]
-        public IActionResult Put([FromBody] Person person)
+        public IActionResult Put([FromBody] PersonVO person)
         {
 
             if (person == null)

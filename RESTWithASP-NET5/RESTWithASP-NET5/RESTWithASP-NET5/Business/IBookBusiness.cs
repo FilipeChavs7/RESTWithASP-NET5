@@ -6,12 +6,12 @@ using System.Threading.Tasks;
 
 namespace RESTWithASP_NET5.Business
 {
-    interface IBookBusiness
+    public interface IBookBusiness
     {
-        Book Create(Book person);
+        Book Create(Book book);
         Book FindById(long Id);
         List<Book> FindAll();
-        Book Update(Book person);
+        Book Update(Book book);
         void Delete(long id);
     }
 }
