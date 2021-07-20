@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using RESTWithASP_NET5.Business;
+using RESTWithASP_NET5.Data.VO;
 using RESTWithASP_NET5.Model;
 using System;
 using System.Collections.Generic;
@@ -47,7 +48,7 @@ namespace RESTWithASP_NET5.Controllers
         // [FromBody] consumes the JSON object sent in the request body
         [HttpPost]
 
-        public IActionResult Post([FromBody] Book book)
+        public IActionResult Post([FromBody] BookVO book)
         {
 
             if (book == null)
@@ -59,7 +60,7 @@ namespace RESTWithASP_NET5.Controllers
         // Maps PUT requests to https://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object sent in the request body
         [HttpPut]
-        public IActionResult Put([FromBody] Book book)
+        public IActionResult Put([FromBody] BookVO book)
         {
 
             if (book == null)
