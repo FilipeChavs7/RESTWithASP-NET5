@@ -18,6 +18,8 @@ using RESTWithASP_NET5.Repository;
 using Serilog;
 using RESTWithASP_NET5.Repository.Generic;
 using Microsoft.Net.Http.Headers;
+using RESTWithASP_NET5.Hypermedia.Filters;
+using RESTWithASP_NET5.Hypermedia.Enricher;
 
 namespace RESTWithASP_NET5
 {
@@ -55,6 +57,12 @@ namespace RESTWithASP_NET5
                 options.FormatterMappings.SetMediaTypeMappingForFormat("json", MediaTypeHeaderValue.Parse("application/json"));
             })
             .AddXmlSerializerFormatters();
+
+            var filterOptions = new HyperMediaFilterOptions();
+            filterOptions.ContentResponseEnricherList.Add(new PersonEnricher());
+            filterOptions.ContentResponseEnricherList.Add(new BookEnricher());
+            services.AddSingleton(filterOptions);
+
             services.AddApiVersioning();
 
             //Injeção de dependencia
@@ -82,6 +90,7 @@ namespace RESTWithASP_NET5
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapControllerRoute("DefaultApi", "{controller=values}/{id?}");
             });
             
         }

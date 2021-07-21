@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace RESTWithASP_NET5.Hypermedia.Abstract
 {
-    interface ISupportHyérmedia
+    public interface ISupportsHyperMedia
     {
+        List<HyperMediaLink> Links { get; set; }
     }
 }

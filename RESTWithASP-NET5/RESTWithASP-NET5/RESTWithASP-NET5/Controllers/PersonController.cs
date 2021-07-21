@@ -9,6 +9,7 @@ using RESTWithASP_NET5.Business;
 using RESTWithASP_NET5.Model;
 using RESTWithASP_NET5.Repository;
 using RESTWithASP_NET5.Data.VO;
+using RESTWithASP_NET5.Hypermedia.Filters;
 
 namespace RESTWithASP_NET5.Controllers
 {
@@ -30,6 +31,7 @@ namespace RESTWithASP_NET5.Controllers
         // Maps GET requests to https://localhost:{port}/api/person
         // Get no parameters for FindAll -> Search All
         [HttpGet]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get()
         {
             
@@ -39,6 +41,7 @@ namespace RESTWithASP_NET5.Controllers
         // receiving an ID as in the Request Path
         // Get with parameters for FindById -> Search by ID
         [HttpGet("{id}")]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Get(long id)
         {
             var person = _personBusiness.FindById(id);
@@ -51,7 +54,7 @@ namespace RESTWithASP_NET5.Controllers
         // Maps POST requests to https://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object sent in the request body
         [HttpPost]
-
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Post([FromBody] PersonVO person)
         {
             
@@ -64,6 +67,7 @@ namespace RESTWithASP_NET5.Controllers
         // Maps PUT requests to https://localhost:{port}/api/person/
         // [FromBody] consumes the JSON object sent in the request body
         [HttpPut]
+        [TypeFilter(typeof(HyperMediaFilter))]
         public IActionResult Put([FromBody] PersonVO person)
         {
 
