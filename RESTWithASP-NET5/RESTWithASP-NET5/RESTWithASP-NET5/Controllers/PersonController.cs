@@ -10,11 +10,13 @@ using RESTWithASP_NET5.Model;
 using RESTWithASP_NET5.Repository;
 using RESTWithASP_NET5.Data.VO;
 using RESTWithASP_NET5.Hypermedia.Filters;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RESTWithASP_NET5.Controllers
 {
     [ApiVersion("1")]
     [ApiController]
+    [Authorize("Bearer")]
     [Route("api/[controller]/v{version:apiVersion}")]
     public class PersonController : ControllerBase
     {

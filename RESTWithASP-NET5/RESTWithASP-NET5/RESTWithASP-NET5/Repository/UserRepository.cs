@@ -25,6 +25,24 @@ namespace RESTWithASP_NET5.Repository
             return _context.Users.FirstOrDefault(u => (u.UserName == user.UserName) && (u.Password == pass));
         }
 
+        public User ValidateCredentials(string username)
+        {
+            return _context.Users.SingleOrDefault(u => (u.UserName == username));
+        }
+
+        public bool RevokeToken(string username)
+        {
+            var user = _context.Users.SingleOrDefault(u => (u.UserName == username));
+            if (user == null)
+            {
+                return false;
+            }
+            user.RefreshToken = null;
+            _context.SaveChanges();
+            return true;
+        }
+
+
         public User RefreshUserInfo(User user)
         {
             if (!_context.Users.Any(u => u.Id.Equals(user.Id)))
@@ -45,8 +63,9 @@ namespace RESTWithASP_NET5.Repository
 
                     throw ex;
                 }
-                return result;
+                
             }
+            return result;
         }
 
         private object ComputeHash(string input, SHA256CryptoServiceProvider algorithm)
@@ -55,5 +74,6 @@ namespace RESTWithASP_NET5.Repository
             Byte[] hashedBytes = algorithm.ComputeHash(inputBytes);
             return BitConverter.ToString(hashedBytes);
         }
+
     }
 }
