@@ -11,8 +11,8 @@ namespace RESTWithASP_NET5.Hypermedia.Utils
         public int CurrentPage { get; set; }
         public int PageSize { get; set; }
         public int TotalResults { get; set; }
-        public int SortFields { get; set; }
-        public int SortDirections { get; set; }
+        public string SortFields { get; set; }
+        public string SortDirections { get; set; }
         public Dictionary<string, object> Filters { get; set; }
         public List<T> List { get; set; }
 
@@ -20,7 +20,7 @@ namespace RESTWithASP_NET5.Hypermedia.Utils
         {
         }
 
-        public PagedSearchVO(int currentPage, int pageSize, int sortFields, int sortDirections)
+        public PagedSearchVO(int currentPage, int pageSize, string sortFields, string sortDirections)
         {
             CurrentPage = currentPage;
             PageSize = pageSize;
@@ -28,12 +28,12 @@ namespace RESTWithASP_NET5.Hypermedia.Utils
             SortDirections = sortDirections;
         }
 
-        public PagedSearchVO(int currentPage, int pageSize, int sortFields, int sortDirections, Dictionary<string, object> filters) : this(currentPage, pageSize, sortFields, sortDirections)
+        public PagedSearchVO(int currentPage, int pageSize, string sortFields, string sortDirections, Dictionary<string, object> filters) : this(currentPage, pageSize, sortFields, sortDirections)
         {
             Filters = filters;
         }
 
-        public PagedSearchVO(int currentPage, int sortFields, int sortDirections) 
+        public PagedSearchVO(int currentPage, string sortFields, string sortDirections) 
             : this(currentPage,10,sortFields,sortDirections)
         {
         }
