@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RESTWithASP-NET5", "RESTWithASP-NET5\RESTWithASP-NET5.csproj", "{B2078371-D252-4CF8-BDE0-E033D8DDC8F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RESTWithASP-NET5", "RESTWithASP-NET5\RESTWithASP-NET5.csproj", "{B2078371-D252-4CF8-BDE0-E033D8DDC8F4}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{F5F814C4-36B4-41A8-9EBA-D5E58CA737BA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{B2078371-D252-4CF8-BDE0-E033D8DDC8F4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2078371-D252-4CF8-BDE0-E033D8DDC8F4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2078371-D252-4CF8-BDE0-E033D8DDC8F4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F5F814C4-36B4-41A8-9EBA-D5E58CA737BA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F5F814C4-36B4-41A8-9EBA-D5E58CA737BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F5F814C4-36B4-41A8-9EBA-D5E58CA737BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F5F814C4-36B4-41A8-9EBA-D5E58CA737BA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
