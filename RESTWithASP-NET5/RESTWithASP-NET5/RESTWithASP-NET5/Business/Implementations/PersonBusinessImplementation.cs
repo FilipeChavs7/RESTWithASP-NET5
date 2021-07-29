@@ -1,16 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
-using RESTWithASP_NET5.Data.Converter.Implementations;
+﻿using RESTWithASP_NET5.Data.Converter.Implementations;
 using RESTWithASP_NET5.Data.VO;
 using RESTWithASP_NET5.Hypermedia.Utils;
-using RESTWithASP_NET5.Model;
-using RESTWithASP_NET5.Model.Context;
 using RESTWithASP_NET5.Repository;
-using RESTWithASP_NET5.Repository.Generic;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
 
 namespace RESTWithASP_NET5.Business.Implementations
 {
@@ -53,7 +45,7 @@ namespace RESTWithASP_NET5.Business.Implementations
             int totalResults = _repository.GetCount(countQuery);
 
             return new PagedSearchVO<PersonVO> {
-                CurrentPage = offset,
+                CurrentPage = page,
                 List = _converter.Parse(persons),
                 PageSize = size,
                 SortDirections = sort,
