@@ -134,7 +134,11 @@ namespace RESTWithASP_NET5
 
             //Injeção de dependencia
 
+<<<<<<< HEAD
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+=======
+            services.TryAddSingleton<IHttpContextAccessor,HttpContextAccessor>();
+>>>>>>> b563ca49630e162ebefe703dcf881826c759d350
 
             services.AddScoped<IPersonBusiness, PersonBusinessImplementation>();
             services.AddScoped<IBookBusiness, BookBusinessImplementation>();
@@ -166,7 +170,11 @@ namespace RESTWithASP_NET5
 
 
             app.UseSwagger();
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> b563ca49630e162ebefe703dcf881826c759d350
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "REST API's From 0 to Azure with ASP.NET Core 5 and Docker - v1");
@@ -174,7 +182,11 @@ namespace RESTWithASP_NET5
             );
 
             var option = new RewriteOptions();
+<<<<<<< HEAD
             option.AddRedirect("^$", "swagger");
+=======
+            option.AddRedirect("^$","swagger");
+>>>>>>> b563ca49630e162ebefe703dcf881826c759d350
             app.UseRewriter(option);
 
             app.UseAuthorization();

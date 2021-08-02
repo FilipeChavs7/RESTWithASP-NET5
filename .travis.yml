@@ -1,0 +1,21 @@
+--- 
+before_deploy: 
+  - "echo \"$DOCKER_PASSWORD\" | docker login --username \"$DOCKER_USERNAME\" --password-stdin"
+before_install: 
+  - "cd RESTWithASP-NET5/RESTWithASP-NET5/"
+  - "echo \"We are in the  right folder\""
+deploy: 
+  provider: script
+  script: "docker tag rest-with-asp-net5:latest $DOCKER_USERNAME/rest-with-asp-net5:$TRAVIS_JOB_ID; docker tag rest-with-asp-net5-db:latest $DOCKER_USERNAME/rest-with-asp-net5-db:$TRAVIS_JOB_ID; docker push $DOCKER_USERNAME/rest-with-asp-net5:$TRAVIS_JOB_ID; docker push $DOCKER_USERNAME/rest-with-asp-net5-db:$TRAVIS_JOB_ID;"
+  true: 
+    branch: master
+dist: bionic
+dotnet: 5.0
+language: csharp
+mono: none
+notifications: 
+  email: false
+script: 
+  - "docker-compose build"
+services: docker
+sudo: required

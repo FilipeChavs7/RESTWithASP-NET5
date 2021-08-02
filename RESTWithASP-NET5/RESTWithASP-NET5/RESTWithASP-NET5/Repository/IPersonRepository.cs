@@ -1,18 +1,16 @@
-﻿using System;
+﻿using RESTWithASP_NET5.Data.VO;
+using RESTWithASP_NET5.Model;
+using RESTWithASP_NET5.Repository.Generic;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using RESTWithASP_NET5.Model;
 
 namespace RESTWithASP_NET5.Repository
 {
-    public interface IPersonRepository
+    public interface IPersonRepository : IRepository<Person>
     {
-        Person Create(Person person);
-        Person FindById(long Id);
-        List<Person> FindAll();
-        Person Update(Person person);
-        void Delete(long id);
-        bool Exists(long id);
+        Person Disable(long id);
+        List<Person> FindByName(string firstName, string lastName);
     }
 }
