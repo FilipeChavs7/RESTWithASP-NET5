@@ -6,7 +6,8 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Model\Script\" />
+    <Folder Include="db\migrations\" />
+    <Folder Include="db\dataset\" />
   </ItemGroup>
 
   <ItemGroup>
