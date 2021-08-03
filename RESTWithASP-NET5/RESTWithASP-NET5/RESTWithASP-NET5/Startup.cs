@@ -97,10 +97,10 @@ namespace RESTWithASP_NET5
             var connection = Configuration["MySqlConnection:MySqlConnectionString"];
             services.AddDbContext<MySQLContext>(options => options.UseMySql(connection, serverVersion));
 
-            //if (Enviroment.IsDevelopment())
-            //{
-            //MigrateDatabase(connection);
-            //}
+            if (Enviroment.IsDevelopment())
+            {
+            MigrateDatabase(connection);
+            }
             services.AddMvc(options =>
             {
                 options.RespectBrowserAcceptHeader = true;
@@ -132,7 +132,7 @@ namespace RESTWithASP_NET5
             });
 
 
-            //Injeção de dependencia
+            //InjeÃ§Ã£o de dependencia
 
 <<<<<<< HEAD
             services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
